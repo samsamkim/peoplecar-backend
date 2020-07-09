@@ -1,0 +1,1 @@
+json.array! @cars, partial: "v1/cars/car", as: :car
