@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
+# Use rack-cors to allow request to be made to our server
+gem 'rack-cors'
+
+# Use faker to seed fake data
 gem 'faker', '~> 1.6', '>= 1.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

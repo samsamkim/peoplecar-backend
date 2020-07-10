@@ -2,7 +2,7 @@ class V1::PersonsController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   def index
-    @persons = Person.all
+    @persons = Person.includes(:cars).all
   end
 
   def show
@@ -10,17 +10,19 @@ class V1::PersonsController < ApplicationController
 
   def create
     @person = Person.create(person_params)
-    if @person.save
-      format.json { render :show, status: :created, location: v1_person_path(@person) }
-    else
-      format.json { render json: @person.errors, status: :unprocessable_entity }
-    end
+    respond_to do |format|
+      if @person.save
+        format.json { render json: @person.as_json, status: :created }
+      else
+          format.json { render json: @person.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.json { render :show, status: :ok, location: v1_person_path(@person) }
+        format.json { render json: @person.as_json }
       else
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
