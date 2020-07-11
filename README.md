@@ -1,9 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The backend server for the People Car app. <br/>
 
-Things you may want to cover:
+To set up, create your database with rails db:create. <br />
+
+Afterwards, seed some data using rails db:seed. <br/>
+
+Install required gems with bundle. <br/>
+
+Finally, run the server with rails s. <br/>
+
+The server will run on http://localhost:3000. <br/>
+
+
+Built using ruby v2.6.6 and rails 6.0.3.
+
+
 
 * Ruby version
 
