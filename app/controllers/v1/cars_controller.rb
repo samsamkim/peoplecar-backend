@@ -10,10 +10,12 @@ class V1::CarsController < ApplicationController
 
   def create
     @car = Car.create(car_params)
-    if @car.save
-      format.json { render :show, status: :created, location: v1_car_path(@car) }
-    else
-      format.json { render json: @car.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @car.save
+        format.json { render json: @car.as_json, status: :created }
+      else
+        format.json { render json: @car.errors, status: :unprocessable_entity }
+      end
     end
 
   end
@@ -21,7 +23,8 @@ class V1::CarsController < ApplicationController
   def update
     respond_to do |format|
       if @car.update(car_params)
-        format.json { render :show, status: :ok, location: v1_car_path(@car) }
+        format.json { render json: @car.as_json }
+
       else
         format.json { render json: @car.errors, status: :unprocessable_entity }
       end
@@ -42,7 +45,7 @@ class V1::CarsController < ApplicationController
   end
 
   def car_params
-    params.require(:car).permit(:year, :model, :make, :price)
+    params.require(:car).permit(:year, :model, :make, :price, :person_id)
   end
 
 end
